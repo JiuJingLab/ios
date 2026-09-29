@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "notice": "Heuristics only; names and ports do not prove a camera is present. No MAC/OUI identification on iOS.",
+  "nameKeywords": ["ipcam", "ip camera", "camera", "webcam", "v380", "a9 cam", "a9_camera", "hdcam", "mini cam", "攝影", "摄像"],
+  "ports": [80, 443, 554, 8554, 8000, 8080],
+  "videoPorts": [554, 8554]
+}

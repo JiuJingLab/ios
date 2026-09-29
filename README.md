@@ -1,11 +1,11 @@
-# Clear Space 淨地
+# JiuJing 揪鏡
 
 > 免費、開源、可信任的公益反偷拍工具
 > A free, open-source, trustworthy anti-hidden-camera tool — built as a public good.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-iOS%2016%2B-blue)]()
-[![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-v1.0-ff69b4)](https://github.com/ClearSpaceLab/Code-of-Conduct)
+[![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-v1.0-ff69b4)](https://github.com/JiuJingLab/Code-of-Conduct)
 
 **不應該只有偷拍工具。這世界也應該有免費、可信任的公益反偷拍工具。**
 
@@ -13,9 +13,9 @@
 
 ## 名稱由來
 
-**淨地 Clear Space**：還給使用者一個乾淨、無偷拍、私密的安全空間。
+**揪鏡 JiuJing**：還給使用者一個乾淨、無偷拍、私密的安全空間。
 
-維護團隊：**Clear Space Lab 淨地實驗室**
+維護團隊：**JiuJing Lab 揪鏡實驗室**
 
 ---
 
@@ -27,13 +27,13 @@
 
 ### 2. 反偷拍工具應該是公共財
 
-保護自己不被偷拍，不該是付費才能擁有的能力。淨地**永久免費**。
+保護自己不被偷拍，不該是付費才能擁有的能力。揪鏡**永久免費**。
 
 ### 3. 偵測資料應該放在使用者信任的地方
 
 有效的偵測需要運算，運算常需要把資料送上雲端。問題不是「要不要上傳」，而是「**上傳給誰**」。
 
-市面上的偵測 App 大多是商業產品，營運主體、資料流向與用途並不透明。淨地的做法是：資料只送到我們自己管理、公開說明的雲端環境，程式碼全部開源供檢驗。
+市面上的偵測 App 大多是商業產品，營運主體、資料流向與用途並不透明。揪鏡的做法是：資料只送到我們自己管理、公開說明的雲端環境，程式碼全部開源供檢驗。
 
 > 「免費」與「資料可信任」在商業 App 裡幾乎無法同時成立——免費產品的收入往往來自資料。淨地作為公益專案，才能同時做到這兩件事。
 
@@ -106,7 +106,7 @@
 
 ### 長期目標
 
-我們希望淨地未來能**完整移交給公益團體營運**：由公益團體承擔營運成本，Clear Space Lab 持續協助維護技術，讓專案能被長期支持、穩定運行。
+我們希望揪鏡未來能**完整移交給公益團體營運**：由公益團體承擔營運成本，JiuJing Lab 持續協助維護技術，讓專案能被長期支持、穩定運行。
 
 ---
 
@@ -125,13 +125,13 @@ cd ios
 
 歡迎任何形式的參與：
 
-- **補充偷拍裝置資料**：編輯 `ClearSpace/Resources/known_cameras.json`，一行 JSON 就能貢獻
+- **補充偷拍裝置資料**：編輯 `JiuJing/Resources/known_cameras.json`，一行 JSON 就能貢獻
 - **實作偵測功能**：認領上方表格中 📋 狀態的項目
 - **加入技術讀書會**：一起研究新型偷拍手法與防禦策略
 - **回報誤判**：開 Issue 附上掃描截圖（請隱去個人資訊）
 - **翻譯**：英文、日文、韓文
 
-參與前請先閱讀 [社群行為準則](https://github.com/ClearSpaceLab/Code-of-Conduct) 與 [專案治理](https://github.com/ClearSpaceLab/Governance)。
+參與前請先閱讀 [社群行為準則](https://github.com/ClearSpaceLab/Code-of-Conduct) 與 [專案治理](https://github.com/JiuJingLab/Governance)。
 
 ---
 
@@ -145,7 +145,7 @@ cd ios
 
 ## 授權
 
-[MIT License](LICENSE) © Clear Space Lab 淨地實驗室
+[MIT License](LICENSE) © JiuJing Lab 揪鏡實驗室
 
 ---
 

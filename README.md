@@ -1,5 +1,7 @@
 # JiuJing 揪鏡
 
+<img src="docs/brand/jiujing-logo.png" alt="揪鏡 Logo" width="128" height="128">
+
 > 免費、開源、可信任的公益反偷拍工具
 > A free, open-source, trustworthy anti-hidden-camera tool — built as a public good.
 
@@ -149,6 +151,8 @@ xcodebuild -project JiuJing.xcodeproj -scheme JiuJing -destination 'platform=iOS
 ---
 
 ## 參與貢獻
+
+品牌圖檔與 App 圖示的更新方式見 [Logo 素材說明](docs/brand/README.md)。
 
 歡迎任何形式的參與：
 

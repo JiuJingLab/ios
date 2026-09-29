@@ -96,7 +96,10 @@ struct HomeView: View {
     }
     private var header: some View {
         HStack {
-            Image(systemName: "viewfinder").font(.title).foregroundStyle(forest)
+            Image("BrandLogo")
+                .resizable().scaledToFit().frame(width: 44, height: 44)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 1) {
                 Text("揪鏡").font(.title2.bold())
                 Text("JIUJING LAB").font(.system(size: 9, weight: .semibold, design: .monospaced)).tracking(2)

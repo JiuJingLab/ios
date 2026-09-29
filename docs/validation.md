@@ -22,3 +22,15 @@
 不需要 App Intents 的本專案會出現 Xcode「Metadata extraction skipped. No AppIntents.framework dependency found.」工具提示；編譯、連結及測試均通過。沒有用 npm／pip／Cargo 依賴，未執行不適用的 package audit。
 
 須完成 `device-validation.md` 的實機項目，才能宣稱已驗證真實硬體偵測。App 尚未經 Apple Beta App Review 或 App Store Review。
+
+## 新 Logo 套用驗證
+
+2026-09-29：App 圖示、首頁品牌標誌、README、填表頁與網頁圖示統一使用 `docs/brand/jiujing-logo.png`。產圖腳本改為縮放這張原圖；已確認原圖與核定生成檔逐位元組相同，App 圖示為 1024 × 1024 且無透明通道。
+
+- iPhone 17 Pro / iOS 26.5（JiuJing QA）編譯與測試通過：9 項核心測試、1 項同意／模式切換 UI 測試，0 失敗。
+- 已檢視 App 圖示與首頁截圖，並更新 `docs/qa` 截圖；資產目錄與 HTML 圖片路徑檢查、`git diff --check` 通過。
+- 結果：`build/LogoValidation.xcresult`。本次未重跑 iPad、Release archive 或實機測試，未發佈至商店。
+
+## TestFlight 發佈前驗證（2026-09-30）
+
+以目前 Logo 與品牌素材重新執行：iPhone 17 Pro / iOS 26.5 的 9 項核心測試及 5 項 UI 測試全部通過（`build/TestFlightFinal.xcresult`）。版本 0.1.0、build 1 的 Release archive 已成功完成 Apple Development 簽署（`build/JiuJing.xcarchive`）。TestFlight 最終上傳與處理狀態以[獨立發佈文件](https://github.com/JiuJingLab/docs/blob/main/release/testflight.md)為準。

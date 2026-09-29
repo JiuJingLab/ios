@@ -29,6 +29,11 @@ struct HomeView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     header
+                    #if DEBUG
+                    if ProcessInfo.processInfo.arguments.contains("--ui-test-findings") {
+                        Text("模擬測試資料・不代表實際偵測").font(.footnote).foregroundStyle(.orange)
+                    }
+                    #endif
                     hero
                     VStack(alignment: .leading, spacing: 18) {
                         Text("選擇檢查方式").font(.headline)
@@ -136,6 +141,7 @@ struct HomeView: View {
                 ForEach(findings) { finding in
                     NavigationLink { FindingView(finding: finding) } label: { FindingRow(finding: finding) }
                         .buttonStyle(.plain)
+                        .accessibilityIdentifier("finding-\(finding.id)")
                 }
             }
         }

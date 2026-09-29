@@ -21,6 +21,16 @@ final class NetworkScanner: ObservableObject {
     private var selectedInterface: String?
     private var selectedSubnet: String?
 
+    init() {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("--ui-test-findings") {
+            findings = [Finding(id: "fixture-rtsp", name: "RTSP 測試裝置（模擬）", source: .network,
+                address: "192.0.2.10", ports: [554], reasons: ["模擬的 RTSP 測試線索，不是實際偵測結果。"])]
+            status = "UI 測試資料；尚未執行掃描"
+        }
+        #endif
+    }
+
     func start() {
         stop()
         findings = []

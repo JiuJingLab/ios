@@ -1,0 +1,50 @@
+name: JiuJing
+options:
+  bundleIdPrefix: org.jiujinglab
+  deploymentTarget:
+    iOS: '16.0'
+settings:
+  base:
+    SWIFT_VERSION: '5.0'
+    MARKETING_VERSION: '0.1.0'
+    CURRENT_PROJECT_VERSION: '1'
+    TARGETED_DEVICE_FAMILY: '1,2'
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    DEVELOPMENT_TEAM: ''
+targets:
+  JiuJing:
+    type: application
+    platform: iOS
+    sources: [JiuJing]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.jiujinglab.ios
+        INFOPLIST_FILE: JiuJing/Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: NO
+  JiuJingTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [JiuJingTests]
+    dependencies:
+      - target: JiuJing
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+  JiuJingUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [JiuJingUITests]
+    dependencies:
+      - target: JiuJing
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  JiuJing:
+    build:
+      targets:
+        JiuJing: all
+    test:
+      targets: [JiuJingTests, JiuJingUITests]

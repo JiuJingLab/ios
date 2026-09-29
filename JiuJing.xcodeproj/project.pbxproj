@@ -1,0 +1,548 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0A065FAC4C0705D5A99B4358 /* DetectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C2F296A1E0EF9431A0988A /* DetectionTests.swift */; };
+		0B5233BA8300F127FA7EF36A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 96AA7A4C8CAEE7AFF6B48114 /* PrivacyInfo.xcprivacy */; };
+		1DC110847779495C1926F4E0 /* known_cameras.json in Resources */ = {isa = PBXBuildFile; fileRef = BE65B8147D876EC2AA2F2CFC /* known_cameras.json */; };
+		45CBF57C853AC36F72EBC620 /* JiuJingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6310311416BFD5D5E19BA91 /* JiuJingApp.swift */; };
+		48C915E32D5B5A1C24627E9E /* Detection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D1A3EE88AD905EE6A8552E /* Detection.swift */; };
+		78061E79C637A4BCDAD4E32D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D33785ECD34AA4AE8FC5404 /* Assets.xcassets */; };
+		A623B74A2BDD99C4FC351669 /* JiuJingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73549A1CAA801719693C420 /* JiuJingUITests.swift */; };
+		CCDCB83454136F5D83F9B8D4 /* NetworkScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0E2AADD1999F169C54EBF /* NetworkScanner.swift */; };
+		EC016299A237A7D9A760905D /* BluetoothScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9832AD397E7640B275F5C45 /* BluetoothScanner.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CD2528DE6C54E3DBBA73C7D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD92CE788F85AC23F598B1DF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 61B4A31753DFDA8C3CB4425C;
+			remoteInfo = JiuJing;
+		};
+		E9BF27FED822363C91A62332 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD92CE788F85AC23F598B1DF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 61B4A31753DFDA8C3CB4425C;
+			remoteInfo = JiuJing;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		02AAA1429ACBC443BD2AB02D /* JiuJing.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = JiuJing.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		111A1FC06740E21F0DCB59FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		24F0DE2BB60837D249C58100 /* JiuJingUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = JiuJingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		443499D88990031CDC1E0BCC /* JiuJingTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = JiuJingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		77D0E2AADD1999F169C54EBF /* NetworkScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkScanner.swift; sourceTree = "<group>"; };
+		96AA7A4C8CAEE7AFF6B48114 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		99D1A3EE88AD905EE6A8552E /* Detection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detection.swift; sourceTree = "<group>"; };
+		9D33785ECD34AA4AE8FC5404 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A9C2F296A1E0EF9431A0988A /* DetectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionTests.swift; sourceTree = "<group>"; };
+		BE65B8147D876EC2AA2F2CFC /* known_cameras.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = known_cameras.json; sourceTree = "<group>"; };
+		D6310311416BFD5D5E19BA91 /* JiuJingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JiuJingApp.swift; sourceTree = "<group>"; };
+		D73549A1CAA801719693C420 /* JiuJingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JiuJingUITests.swift; sourceTree = "<group>"; };
+		E9832AD397E7640B275F5C45 /* BluetoothScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothScanner.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		068A94F6D0FFB73240596036 = {
+			isa = PBXGroup;
+			children = (
+				5B6DB3E27E0921EC287BDCFF /* JiuJing */,
+				2FBBE89094EB38FD459571B1 /* JiuJingTests */,
+				7597DDE376D43839F2778FAA /* JiuJingUITests */,
+				5BFD9872191951F5CD911FA6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2FBBE89094EB38FD459571B1 /* JiuJingTests */ = {
+			isa = PBXGroup;
+			children = (
+				A9C2F296A1E0EF9431A0988A /* DetectionTests.swift */,
+			);
+			path = JiuJingTests;
+			sourceTree = "<group>";
+		};
+		5B6DB3E27E0921EC287BDCFF /* JiuJing */ = {
+			isa = PBXGroup;
+			children = (
+				9D33785ECD34AA4AE8FC5404 /* Assets.xcassets */,
+				E9832AD397E7640B275F5C45 /* BluetoothScanner.swift */,
+				99D1A3EE88AD905EE6A8552E /* Detection.swift */,
+				111A1FC06740E21F0DCB59FF /* Info.plist */,
+				D6310311416BFD5D5E19BA91 /* JiuJingApp.swift */,
+				77D0E2AADD1999F169C54EBF /* NetworkScanner.swift */,
+				D9E6E00722241CAAB034D5F6 /* Resources */,
+			);
+			path = JiuJing;
+			sourceTree = "<group>";
+		};
+		5BFD9872191951F5CD911FA6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				02AAA1429ACBC443BD2AB02D /* JiuJing.app */,
+				443499D88990031CDC1E0BCC /* JiuJingTests.xctest */,
+				24F0DE2BB60837D249C58100 /* JiuJingUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7597DDE376D43839F2778FAA /* JiuJingUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D73549A1CAA801719693C420 /* JiuJingUITests.swift */,
+			);
+			path = JiuJingUITests;
+			sourceTree = "<group>";
+		};
+		D9E6E00722241CAAB034D5F6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BE65B8147D876EC2AA2F2CFC /* known_cameras.json */,
+				96AA7A4C8CAEE7AFF6B48114 /* PrivacyInfo.xcprivacy */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		61B4A31753DFDA8C3CB4425C /* JiuJing */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F7C7855F2A01EE6B55AC55EA /* Build configuration list for PBXNativeTarget "JiuJing" */;
+			buildPhases = (
+				14E819DF02541BCC43C0F23D /* Sources */,
+				512D013C1EA4F6C735725FAF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JiuJing;
+			packageProductDependencies = (
+			);
+			productName = JiuJing;
+			productReference = 02AAA1429ACBC443BD2AB02D /* JiuJing.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7047BD13F55AE09838E2E3DD /* JiuJingTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3C83C8632D379CF4A60F64A /* Build configuration list for PBXNativeTarget "JiuJingTests" */;
+			buildPhases = (
+				8B6D60139FFCBF12F117B0EC /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4439302D589819305578E17D /* PBXTargetDependency */,
+			);
+			name = JiuJingTests;
+			packageProductDependencies = (
+			);
+			productName = JiuJingTests;
+			productReference = 443499D88990031CDC1E0BCC /* JiuJingTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AC2B4FA55DB96AF19A9E0392 /* JiuJingUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83C2C450DDE0E1F75F7395BE /* Build configuration list for PBXNativeTarget "JiuJingUITests" */;
+			buildPhases = (
+				74C92DBFE0AD07C730D9EBB1 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C3CAEEB58F3092B64CE6711D /* PBXTargetDependency */,
+			);
+			name = JiuJingUITests;
+			packageProductDependencies = (
+			);
+			productName = JiuJingUITests;
+			productReference = 24F0DE2BB60837D249C58100 /* JiuJingUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AD92CE788F85AC23F598B1DF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					61B4A31753DFDA8C3CB4425C = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					7047BD13F55AE09838E2E3DD = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					AC2B4FA55DB96AF19A9E0392 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+						TestTargetID = 61B4A31753DFDA8C3CB4425C;
+					};
+				};
+			};
+			buildConfigurationList = A6A4B4465EC34690A0EBAEF1 /* Build configuration list for PBXProject "JiuJing" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 068A94F6D0FFB73240596036;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 5BFD9872191951F5CD911FA6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				61B4A31753DFDA8C3CB4425C /* JiuJing */,
+				7047BD13F55AE09838E2E3DD /* JiuJingTests */,
+				AC2B4FA55DB96AF19A9E0392 /* JiuJingUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		512D013C1EA4F6C735725FAF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				78061E79C637A4BCDAD4E32D /* Assets.xcassets in Resources */,
+				0B5233BA8300F127FA7EF36A /* PrivacyInfo.xcprivacy in Resources */,
+				1DC110847779495C1926F4E0 /* known_cameras.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		14E819DF02541BCC43C0F23D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC016299A237A7D9A760905D /* BluetoothScanner.swift in Sources */,
+				48C915E32D5B5A1C24627E9E /* Detection.swift in Sources */,
+				45CBF57C853AC36F72EBC620 /* JiuJingApp.swift in Sources */,
+				CCDCB83454136F5D83F9B8D4 /* NetworkScanner.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74C92DBFE0AD07C730D9EBB1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A623B74A2BDD99C4FC351669 /* JiuJingUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B6D60139FFCBF12F117B0EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A065FAC4C0705D5A99B4358 /* DetectionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4439302D589819305578E17D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 61B4A31753DFDA8C3CB4425C /* JiuJing */;
+			targetProxy = CD2528DE6C54E3DBBA73C7D4 /* PBXContainerItemProxy */;
+		};
+		C3CAEEB58F3092B64CE6711D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 61B4A31753DFDA8C3CB4425C /* JiuJing */;
+			targetProxy = E9BF27FED822363C91A62332 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1C5DDD4ACD30A5FB8026BD1E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.jiujinglab.JiuJingUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JiuJing;
+			};
+			name = Release;
+		};
+		3A3E60462DE71FA8D960D0E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.jiujinglab.JiuJingTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JiuJing.app/JiuJing";
+			};
+			name = Debug;
+		};
+		76A01B4F6FEBD9A3A376B470 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.jiujinglab.JiuJingUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JiuJing;
+			};
+			name = Debug;
+		};
+		93D81E20BD23B62E729778D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.jiujinglab.JiuJingTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JiuJing.app/JiuJing";
+			};
+			name = Release;
+		};
+		9DE3CD7DC22119E5735F5102 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A9C6563A691F8F696B526773 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = JiuJing/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.jiujinglab.ios;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D177DA79D6764F19D98EBE26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = JiuJing/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.jiujinglab.ios;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F728D68B7A6477F1DD8EDE6F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		83C2C450DDE0E1F75F7395BE /* Build configuration list for PBXNativeTarget "JiuJingUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				76A01B4F6FEBD9A3A376B470 /* Debug */,
+				1C5DDD4ACD30A5FB8026BD1E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A6A4B4465EC34690A0EBAEF1 /* Build configuration list for PBXProject "JiuJing" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DE3CD7DC22119E5735F5102 /* Debug */,
+				F728D68B7A6477F1DD8EDE6F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B3C83C8632D379CF4A60F64A /* Build configuration list for PBXNativeTarget "JiuJingTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A3E60462DE71FA8D960D0E5 /* Debug */,
+				93D81E20BD23B62E729778D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F7C7855F2A01EE6B55AC55EA /* Build configuration list for PBXNativeTarget "JiuJing" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9C6563A691F8F696B526773 /* Debug */,
+				D177DA79D6764F19D98EBE26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AD92CE788F85AC23F598B1DF /* Project object */;
+}

@@ -50,9 +50,14 @@ final class JiuJingUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["尚無裝置線索"].exists)
     }
     private func tap(_ element: XCUIElement, in app: XCUIApplication) {
-        for _ in 0..<5 {
+        for _ in 0..<12 {
             if element.isHittable { element.tap(); return }
-            app.swipeUp()
+            // New inspection entries make the home page taller. Scroll toward the
+            // target instead of always downward (which can pass controls above us).
+            let above = element.exists && element.frame.midY < app.frame.midY
+            let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: above ? 0.35 : 0.7))
+            let end = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: above ? 0.7 : 0.35))
+            start.press(forDuration: 0.05, thenDragTo: end)
         }
         XCTFail("Element not reachable: \(element)")
     }
@@ -129,5 +134,43 @@ final class JiuJingUITests: XCTestCase {
         app.buttons["完成"].tap()
         tap(app.buttons.containing(.staticText, identifier: "再多看一眼").firstMatch, in: app)
         XCTAssertTrue(app.navigationBars["多一層檢查"].waitForExistence(timeout: 3))
+    }
+    func testMACAndWiFiManualChecks() {
+        let app = XCUIApplication()
+        app.launch()
+        tap(app.buttons["networkClues"], in: app)
+        let mac = app.textFields["macInput"]
+        tap(mac, in: app); mac.typeText("02:11:22:33:44:55\n")
+        tap(app.buttons["matchMAC"], in: app)
+        XCTAssertTrue(app.staticTexts["macResult"].label.contains("隨機化"))
+        let ssid = app.textFields["ssidInput"]
+        tap(ssid, in: app); ssid.typeText("V380-room\n")
+        tap(app.buttons["matchWiFi"], in: app)
+        XCTAssertTrue(app.staticTexts["wifiResult"].label.contains("名稱含有"))
+        capture(app, name: "v03-network-clues")
+        tap(app.buttons["清除輸入與結果"], in: app)
+        XCTAssertFalse(app.staticTexts["wifiResult"].exists)
+    }
+    func testAudioUnavailableAndClear() {
+        let app = XCUIApplication()
+        app.launch()
+        tap(app.buttons["audioInspection"], in: app)
+        tap(app.buttons["audioStart"], in: app)
+        expectation(for: NSPredicate(format: "label CONTAINS %@", "模擬器"), evaluatedWith: app.staticTexts["audioStatus"])
+        waitForExpectations(timeout: 5)
+        XCTAssertTrue(app.buttons["audioStart"].isEnabled)
+        capture(app, name: "v03-audio-unavailable")
+        tap(app.buttons["清除結果"], in: app)
+        XCTAssertTrue(app.staticTexts["audioStatus"].label.contains("啟動後分析"))
+    }
+    func testCameraAnalysisModesAreReachable() {
+        let app = XCUIApplication()
+        app.launch()
+        tap(app.buttons["cameraInspection"], in: app)
+        tap(app.buttons["紅外線亮點"], in: app)
+        XCTAssertTrue(app.staticTexts["frameAnalysisResult"].exists)
+        tap(app.buttons["即時視覺"], in: app)
+        XCTAssertTrue(app.staticTexts["frameAnalysisResult"].label.contains("尚無分析結果"))
+        capture(app, name: "v03-camera-analysis")
     }
 }

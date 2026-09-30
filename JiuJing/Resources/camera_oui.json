@@ -1,0 +1,490 @@
+{
+  "source": "https://standards-oui.ieee.org/oui/oui.csv",
+  "retrieved": "2026-09-30",
+  "entries": [
+    {
+      "prefix": "00408C",
+      "organization": "Axis Communications AB"
+    },
+    {
+      "prefix": "00BC99",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "040312",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "04EECD",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "083BC1",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "085411",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "08A189",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "08CC81",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "08EDED",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "0C75D2",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "1012FB",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "14A78B",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "1868CB",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "188025",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "202C05",
+      "organization": "ZHEJIANG DAHUA ZHILIAN CO.,LTD"
+    },
+    {
+      "prefix": "240F9B",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "2428FD",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "2432AE",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "244845",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "24526A",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "2857BE",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "2CA59C",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "30DDAA",
+      "organization": "ZHEJIANG DAHUA TECHNOLOGYCO.,LTD"
+    },
+    {
+      "prefix": "340962",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "38AF29",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "3C1BF8",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "3CE36B",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "3CEF8C",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "407AA4",
+      "organization": "ZHEJIANG DAHUA TECHNOLOGYCO.,LTD"
+    },
+    {
+      "prefix": "40ACBF",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "40B570",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "4419B6",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "4447CC",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "44A642",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "48785B",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "4C11BF",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "4C1F86",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "4C62DF",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "4C99E8",
+      "organization": "ZHEJIANG DAHUA TECHNOLOGYCO.,LTD"
+    },
+    {
+      "prefix": "4CBD8F",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "4CF5DC",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "50E538",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "548C81",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "54C415",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "5803FB",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "5850ED",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "5C345B",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "5CF51A",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "64DB8B",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "64FD29",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "686DBC",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "6C1C71",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "743FC2",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "74C929",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "80489F",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "807C62",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "80BEAF",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "80F5AE",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "849459",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "849A40",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "88DE39",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "8C22D2",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "8CE748",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "8CE9B4",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "9002A9",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "94E1AC",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "988B0A",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "989DE5",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "98DF82",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "98F112",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "98F9CC",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "9C1463",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "A0BD1D",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "A0FF0C",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "A41437",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "A42902",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "A44BD9",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "A4A459",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "A4D5C2",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "A8CA87",
+      "organization": "ZHEJIANG DAHUA ZHILIAN CO.,LTD"
+    },
+    {
+      "prefix": "ACB92F",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "ACCB51",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "ACCC8E",
+      "organization": "Axis Communications AB"
+    },
+    {
+      "prefix": "B0FF0D",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "B44C3B",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "B4A382",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "B8A44F",
+      "organization": "Axis Communications AB"
+    },
+    {
+      "prefix": "BC325F",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "BC5E33",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "BC9B5E",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "BCAD28",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "BCBAC2",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "C0395A",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "C0517E",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "C056E3",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "C06DED",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "C42F90",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "C4AAC4",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "C8A702",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "CC13F3",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "D4430E",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "D4E853",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "DC07F8",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "DCD26A",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "E02EFE",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "E0508B",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "E0BAAD",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "E0CA3C",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "E0DF13",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "E4246C",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "E4D58B",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "E82725",
+      "organization": "Axis Communications AB"
+    },
+    {
+      "prefix": "E8A0ED",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "ECA971",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "ECC89C",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "F4B1C2",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "F84DFC",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "F8CE07",
+      "organization": "ZHEJIANG DAHUA TECHNOLOGYCO.,LTD"
+    },
+    {
+      "prefix": "FC5F49",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    },
+    {
+      "prefix": "FC9FFD",
+      "organization": "Hangzhou Hikvision Digital Technology Co.,Ltd."
+    },
+    {
+      "prefix": "FCB69D",
+      "organization": "Zhejiang Dahua Technology Co., Ltd."
+    }
+  ]
+}

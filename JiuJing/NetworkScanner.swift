@@ -57,7 +57,7 @@ final class NetworkScanner: ObservableObject {
                 }
                 let names = Set(path.availableInterfaces.filter { $0.type == .wifi }.map(\.name))
                 guard let (subnet, interface) = Self.wifiSubnet(names: names) else {
-                    self.finish("此 Wi-Fi 沒有可用的 IPv4 位址；v0.2 無法掃描此網路。"); return
+                    self.finish("此 Wi-Fi 沒有可用的 IPv4 位址；目前僅支援 IPv4 區網掃描。"); return
                 }
                 if let previous = self.selectedSubnet {
                     if previous != subnet.label || self.selectedInterface != interface {

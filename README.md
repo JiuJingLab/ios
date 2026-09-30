@@ -12,6 +12,16 @@
 
 **不應該只有偷拍工具。這世界也應該有免費、可信任的公益反偷拍工具。**
 
+## TestFlight v0.2 已上架・申請內測
+
+**v0.2（App `0.2.0`、build `2`）已上架 TestFlight，提供受邀測試者安裝。** v0.3 為開發中的版本，尚未上架 TestFlight。
+
+- [申請內測：填寫 Google Form](https://docs.google.com/forms/d/e/1FAIpQLSdzdQjYGL6-Jmyyk6onOKuoExmuiD8OD0J5rv0c4Ipi3wgdlA/viewform)
+- [下載 TestFlight App](https://apps.apple.com/tw/app/testflight/id899247664)
+- [TestFlight v0.2 建置頁（需 App Store Connect 管理權限）](https://appstoreconnect.apple.com/apps/6817397936/testflight/ios/0ff53bb7-61e6-4734-9d05-2d3f35144c2c)
+
+目前採邀請制，填表後將依名額與版本進度分批寄送 Email 測試邀請；請透過邀請在 TestFlight 安裝揪鏡。上方建置頁是管理連結，不是公開安裝連結；填表不代表立即取得測試資格。
+
 ## 影片介紹
 
 [![觀看揪鏡介紹影片：還給使用者一個乾淨、無偷拍、私密的安全空間](https://i.ytimg.com/vi/lftKUIdO3tI/hqdefault.jpg)](https://youtube.com/shorts/lftKUIdO3tI?si=zCjGtetUNFP0gS71)
@@ -59,17 +69,19 @@ v0.3 的區網／BLE、MAC／Wi-Fi 比對、相機逐幀分析與音訊頻譜都
 
 ## 偵測技術與 v0.3 進度
 
-開發分支：[`codex/feat/v0.3`](https://github.com/JiuJingLab/ios/tree/codex/feat/v0.3)，App `0.3.0`、build `3`。**尚未發佈至 TestFlight，新增功能待實機驗收與效能／誤報評估。** 下表的「已實作」表示有可操作流程與程式碼，不表示已驗證能辨識偷拍設備。
+開發分支：[`codex/feat/v0.3`](https://github.com/JiuJingLab/ios/tree/codex/feat/v0.3)，App `0.3.0`、build `3`。**v0.2 已上架 TestFlight；v0.3 尚未上架，新增功能待實機驗收與效能／誤報評估。** 下表的「已實作」表示有可操作流程與程式碼，不表示已驗證能辨識偷拍設備。
 
 | # | 技術 | 實作內容與邊界 | 運算位置 | 進度 |
 |---|---|---|---|---|
-| 1 | 區網掃描 | 同 Wi-Fi 的 IPv4 常用 TCP 端口與 Bonjour；不取得周邊 MAC | 手機端 | 沿用 v0.1／v0.2；待實機驗收 |
-| 2 | 藍牙 BLE | 被動廣播、名稱規則與 RSSI；不連線、不配對 | 手機端 | 沿用 v0.1／v0.2；待實機驗收 |
+| 1 | 區網掃描 | 同 Wi-Fi 的 IPv4 常用 TCP 端口與 Bonjour；不取得周邊 MAC | 手機端 | v0.1／v0.2 已實作；iPhone 15 實機實測通過 |
+| 2 | 藍牙 BLE | 被動廣播、名稱規則與 RSSI；不連線、不配對 | 手機端 | v0.1／v0.2 已實作；iPhone 15 實機實測通過 |
 | 3 | MAC 位址名單比對 | 手動輸入路由器清單／設備標籤的 MAC，或帶入目前存取點 BSSID；比對 IEEE 廠商 OUI；拒絕群播、全零與無效格式，本地／隨機位址不推測廠商 | 手機端 | v0.3 已實作有限名單比對；iOS 周邊 MAC 自動取得不支援 |
 | 4 | Wi-Fi | 讀取目前 SSID／BSSID，或手動輸入 SSID 比對名稱；可選填外部量測 RSSI，強度不參與可疑判定 | 手機端 | v0.3 已實作；目前連線讀取待實機驗收；全部 SSID／RSSI 自動掃描不支援 |
 | 5 | 紅外線 | 相機逐幀尋找暗背景孤立亮點，提供遙控器校驗提示與前後鏡頭切換；無法分辨可見光與 IR，也不能量測波長 | 手機端 | v0.3 已實作實驗性亮點輔助；非專用 IR 偵測，待實機驗收 |
 | 6 | 即時視覺 | 每秒最多 2 幀，偵測孤立反光與含亮點的 Vision 矩形輪廓，顯示線索數量；非攝影機物件辨識模型 | 手機端 | v0.3 已實作實驗性幾何分析；待實機驗收與準確率評估 |
 | 7 | 音訊 | 使用者啟動 10 秒麥克風分析，Hann window＋2048 點 FFT、8 頻帶、窄帶音持續性提示；不偵測電磁訊號，不具有攝影／錄音器專屬聲紋 | 手機端 | v0.3 已實作實驗性聲學分析；待實機驗收與準確率評估 |
+
+**註：未來計劃購買紅隊設備（實體偷拍機），作為藍隊反偷拍工具的實驗測試用。** 前兩項已完成 iPhone 15 的實機功能測試；針對實體偷拍機的命中率、漏報率與誤報率，將另行驗證。
 
 原規劃的伺服器影像／音訊辨識尚未建置；本版先提供上述可在手機獨立運行的實驗性分析，無上傳端點、模型服務或帳號需求。所有結果僅是人工複查線索，不可用來確認或排除偷拍。
 
@@ -87,7 +99,7 @@ v0.3 的區網／BLE、MAC／Wi-Fi 比對、相機逐幀分析與音訊頻譜都
 
 ## v0.2 已發佈實作範圍（歷史紀錄）
 
-版本：[v0.2](https://github.com/JiuJingLab/ios/releases/tag/v0.2)，App `0.2.0`，build `2`。目前提供內部 TestFlight 測試；詳細狀態以[發佈紀錄](docs/testflight.md)為準。
+版本：[v0.2](https://github.com/JiuJingLab/ios/releases/tag/v0.2)，App `0.2.0`，build `2`。**已上架 TestFlight，提供受邀測試者安裝**；可透過上方 Google Form 申請內測，詳細發佈紀錄見[發佈文件](docs/testflight.md)。
 
 - SwiftUI 原生介面，iPhone／iPad、iOS 16+；沿用核定的 JiuJing 揪鏡 Logo。
 - **更清楚的掃描結果**：頂部大型狀態卡、待確認／總紀錄數、警示圖示、醒目外框、命中原因、直接查看待確認線索；支援深色模式與 VoiceOver 提醒。

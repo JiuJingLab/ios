@@ -108,6 +108,11 @@ struct HomeView: View {
                         }
                     }.padding(20).background(Color(uiColor: .secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 24))
                     results.id("results")
+                    NavigationLink { CameraVerificationView() } label: {
+                        Label("拍攝來源驗證 · 讀取授權影像", systemImage: "video.badge.checkmark")
+                            .font(.headline).frame(maxWidth: .infinity, alignment: .leading).padding(20)
+                            .background(forest.opacity(0.07), in: RoundedRectangle(cornerRadius: 20))
+                    }.disabled(running).accessibilityIdentifier("cameraVerification")
                     Button { showCamera = true } label: {
                         HStack(spacing: 14) {
                             Image(systemName: "camera.viewfinder").font(.title2)
@@ -270,6 +275,13 @@ struct FindingView: View {
                 }
                 ForEach(finding.reasons, id: \.self) { Text($0) }
             }
+            if finding.source == .network {
+                Section("進一步確認") {
+                    NavigationLink("驗證影像服務或現場畫面") { CameraVerificationView(finding: finding) }
+                    Text("需你有權讀取影像，並提供正確串流路徑；端口開啟本身不代表有攝影機。")
+                        .font(.footnote)
+                }
+            }
             Section("下一步") {
                 Text("對照空間內已知的路由器、電視或智慧家電。若設備用途不明，請向場地管理者確認，並搭配實體目視檢查。")
                 Text("iOS 不提供周邊裝置的 MAC 位址，本工具不會猜測製造商。藍牙 UUID 不是 MAC 位址。")
@@ -314,7 +326,7 @@ struct PrivacyView: View {
                     Text("按「清除」、重新開始該類掃描，或 App 程序結束後，該次結果即清除。不寫入掃描紀錄、不上傳、不販售資料。")
                 }
                 Section("權限用途") {
-                    Text("本機網路：探索同網路服務與 TCP 端口，不讀取影像、不登入設備。")
+                    Text("本機網路：一般掃描僅探索服務與 TCP 端口。拍攝來源驗證在你另行確認有權讀取後，才向指定區網網址請求 RTSP 描述或 JPEG／MJPEG 畫面；不嘗試帳密、不存檔、不上傳。")
                     Text("藍牙：讀取廣播，不配對、不連線。位置（選用）：只為讀取目前 Wi-Fi 名稱與存取點 BSSID，需精確位置授權，不取得 GPS 座標；可拒絕並改用手動輸入。")
                     Text("相機：由你啟動後提供預覽與本機亮點／輪廓分析。麥克風：由你啟動後分析 10 秒環境音的頻譜，不辨識語音。影像與聲音不錄製檔案、不儲存、不上傳；關閉頁面或切到背景即停止。")
                     Button("開啟系統設定") {

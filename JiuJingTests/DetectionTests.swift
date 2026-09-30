@@ -3,6 +3,45 @@ import Network
 @testable import JiuJing
 
 final class DetectionTests: XCTestCase {
+    func testIncompleteAndFailedScansNeverClaimNoSuspiciousFindings() {
+        for phase in [ScanPhase.idle, .scanning, .partial, .failed] {
+            let summary = ScanSummary(phase: phase, findings: [])
+            XCTAssertFalse(summary.title.contains("未發現"))
+        }
+        XCTAssertEqual(ScanSummary(phase: .completed, findings: []).title, "本輪未發現可疑線索")
+    }
+    func testReviewFindingsStayProminentEvenWhenScanIsInterrupted() {
+        let finding = Finding(id: "test", name: "IP Camera", source: .network, address: "192.0.2.1", reasons: ["RTSP"])
+        for phase in [ScanPhase.scanning, .completed, .partial, .failed] {
+            let summary = ScanSummary(phase: phase, findings: [finding])
+            XCTAssertEqual(summary.reviewCount, 1)
+            XCTAssertTrue(summary.caution)
+            XCTAssertTrue(summary.title.contains("待確認"))
+        }
+    }
+    @MainActor
+    func testNetworkCancellationResetsPhaseAndSuppressesLateCallbacks() async {
+        let scanner = NetworkScanner()
+        scanner.start()
+        XCTAssertEqual(scanner.phase, .scanning)
+        scanner.stop()
+        XCTAssertEqual(scanner.phase, .partial)
+        scanner.clear()
+        try? await Task.sleep(nanoseconds: 100_000_000)
+        XCTAssertEqual(scanner.phase, .idle)
+        XCTAssertTrue(scanner.findings.isEmpty)
+        XCTAssertFalse(scanner.running)
+    }
+    @MainActor
+    func testCameraStopInvalidatesPendingStart() async {
+        let camera = CameraController()
+        camera.start()
+        camera.stop()
+        try? await Task.sleep(nanoseconds: 100_000_000)
+        XCTAssertEqual(camera.state, .idle)
+        XCTAssertFalse(camera.torchOn)
+        XCTAssertFalse(camera.session.isRunning)
+    }
     func testRealBundleRulesDecode() throws {
         let rules = try DetectionRules.load()
         XCTAssertEqual(rules.version, 1)

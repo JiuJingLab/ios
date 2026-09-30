@@ -73,23 +73,11 @@ v0.2 的區網／BLE 規則比對與相機輔助都在手機端執行。沒有�
 
 **偵測限制：**線索不能確認或排除攝影機。一般 HTTP 服務、藍牙名稱與訊號強度都不是偷拍證據。本版未取得周邊 MAC/OUI，不猜測廠商。區網限 IPv4；大於 /24 的網路只檢查手機所在 /24（標示部分結果），最多 255 個其他位址、40 條並行連線、每個端口 0.85 秒逾時，整輪上限 60 秒。Bonjour 和 IP 紀錄可能屬於同一設備。BLE 最多保留 500 個裝置。離線攝影機、Wi-Fi 隔離、未廣播設備、VPN、防火牆與逾時均可能造成遺漏。模擬器不能驗證真實相機、BLE 或 iOS 本機網路權限。
 
-## 兩小時內功能評估
-
-| 項目 | v0.2 決定與實作 | 後續條件 |
-|---|---|---|
-| MAC 位址名單比對 | 暫緩；沒有可靠的周邊 MAC 資料來源，BLE UUID 不能當 MAC | 驗證合法公開 API／權限及可用資料，再建立有來源與誤判說明的名單 |
-| WiFi | 改善現有同網路服務探索、掃描範圍、完成／受限／失敗提示 | iOS 沒有一般用途的周邊 SSID 掃描 API；不將同網路服務探索說成所有 Wi-Fi 掃描 |
-| 紅外線 | 提供人工檢查指引及鏡頭切換 | 不同鏡頭濾光能力不同；需受控光源與硬體實驗才能評估效果 |
-| 即時視覺 | 本機相機預覽、放大、補光及人工檢查 | 自動辨識須先準備資料集、標註與誤判評估；本版不宣稱 AI 偵測 |
-| 音訊 | 暫緩，不要求麥克風權限 | 環境聲量不能可靠判斷偷拍設備；須先證明可重現的特徵與精確率 |
-
-設計參考 [Fing 的總覽狀態設計](https://help.fing.com/hc/en-us/articles/6348664131730-Network-Security-Rating)與 [Apple Feedback HIG](https://developer.apple.com/design/human-interface-guidelines/feedback)，使用文字、數量、圖示及顏色共同表達狀態，不提供虛構的安全分數。API 依據：[Apple TN3111](https://developer.apple.com/documentation/technotes/tn3111-ios-wifi-api-overview)、[AVFoundation capture session](https://developer.apple.com/documentation/avfoundation/setting-up-a-capture-session)。
-
-以下雲端、AI 影像／音訊、帳號額度及認證內容是未來研究方向，**不是 v0.2 已提供的功能或已取得的認證**。是否需要伺服器，須由模型、裝置效能與隱私評估決定。
-
 ---
 
 ## 資料與資安
+
+以下雲端、AI 影像／音訊、帳號額度及認證內容是未來研究方向，**不是 v0.2 已提供的功能或已取得的認證**。是否需要伺服器，須由模型、裝置效能與隱私評估決定。
 
 ### 設計原則
 
@@ -157,7 +145,7 @@ xcodebuild -project JiuJing.xcodeproj -scheme JiuJing -destination 'platform=iOS
 歡迎任何形式的參與：
 
 - **補充偷拍裝置資料**：編輯 `JiuJing/Resources/known_cameras.json`，新增名稱關鍵字或端口規則，並附上來源與誤判風險
-- **實作偵測功能**：參與上方表格中尚待研究的項目
+- **改善偵測功能**：協助開發、測試與驗證掃描功能
 - **加入技術讀書會**：一起研究新型偷拍手法與防禦策略
 - **回報誤判**：開 Issue 附上掃描截圖（請隱去個人資訊）
 - **翻譯**：英文、日文、韓文

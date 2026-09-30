@@ -1,4 +1,4 @@
-# JiuJing 揪鏡 · v0.2
+# JiuJing 揪鏡 · v0.3 開發版
 
 <img src="docs/brand/jiujing-logo.png" alt="揪鏡 Logo" width="128" height="128">
 
@@ -22,7 +22,7 @@
 
 ## 名稱由來
 
-**揪鏡 JiuJing**：還給使用者一個乾淨、無偷拍、私密的安全空間。
+把藏在暗處的**鏡**頭**揪**出來，還給使用者一個乾淨、無偷拍、私密的安全空間。
 
 維護團隊：**JiuJing Lab 揪鏡實驗室**
 
@@ -40,7 +40,7 @@
 
 ### 3. 偵測資料留在手機
 
-v0.2 的區網／BLE 規則比對與相機輔助都在手機端執行。沒有帳號、伺服器或分析 SDK，不上傳掃描結果與相機畫面。程式碼與限制公開，讓使用者可以查證資料處理方式。
+v0.3 的區網／BLE、MAC／Wi-Fi 比對、相機逐幀分析與音訊頻譜都在手機端執行。沒有帳號、伺服器或分析 SDK，不上傳掃描結果、影像或聲音。程式碼與限制公開，讓使用者可以查證資料處理方式。
 
 ### 4. 開源，才能跟上偷拍的速度
 
@@ -57,7 +57,35 @@ v0.2 的區網／BLE 規則比對與相機輔助都在手機端執行。沒有�
 
 ---
 
-## v0.2 實作範圍
+## 偵測技術與 v0.3 進度
+
+開發分支：[`codex/feat/v0.3`](https://github.com/JiuJingLab/ios/tree/codex/feat/v0.3)，App `0.3.0`、build `3`。**尚未發佈至 TestFlight，新增功能待實機驗收與效能／誤報評估。** 下表的「已實作」表示有可操作流程與程式碼，不表示已驗證能辨識偷拍設備。
+
+| # | 技術 | 實作內容與邊界 | 運算位置 | 進度 |
+|---|---|---|---|---|
+| 1 | 區網掃描 | 同 Wi-Fi 的 IPv4 常用 TCP 端口與 Bonjour；不取得周邊 MAC | 手機端 | 沿用 v0.1／v0.2；待實機驗收 |
+| 2 | 藍牙 BLE | 被動廣播、名稱規則與 RSSI；不連線、不配對 | 手機端 | 沿用 v0.1／v0.2；待實機驗收 |
+| 3 | MAC 位址名單比對 | 手動輸入路由器清單／設備標籤的 MAC，或帶入目前存取點 BSSID；比對 IEEE 廠商 OUI；拒絕群播、全零與無效格式，本地／隨機位址不推測廠商 | 手機端 | v0.3 已實作有限名單比對；iOS 周邊 MAC 自動取得不支援 |
+| 4 | Wi-Fi | 讀取目前 SSID／BSSID，或手動輸入 SSID 比對名稱；可選填外部量測 RSSI，強度不參與可疑判定 | 手機端 | v0.3 已實作；目前連線讀取待實機驗收；全部 SSID／RSSI 自動掃描不支援 |
+| 5 | 紅外線 | 相機逐幀尋找暗背景孤立亮點，提供遙控器校驗提示與前後鏡頭切換；無法分辨可見光與 IR，也不能量測波長 | 手機端 | v0.3 已實作實驗性亮點輔助；非專用 IR 偵測，待實機驗收 |
+| 6 | 即時視覺 | 每秒最多 2 幀，偵測孤立反光與含亮點的 Vision 矩形輪廓，顯示線索數量；非攝影機物件辨識模型 | 手機端 | v0.3 已實作實驗性幾何分析；待實機驗收與準確率評估 |
+| 7 | 音訊 | 使用者啟動 10 秒麥克風分析，Hann window＋2048 點 FFT、8 頻帶、窄帶音持續性提示；不偵測電磁訊號，不具有攝影／錄音器專屬聲紋 | 手機端 | v0.3 已實作實驗性聲學分析；待實機驗收與準確率評估 |
+
+原規劃的伺服器影像／音訊辨識尚未建置；本版先提供上述可在手機獨立運行的實驗性分析，無上傳端點、模型服務或帳號需求。所有結果僅是人工複查線索，不可用來確認或排除偷拍。
+
+### 五項新增功能如何使用
+
+- **MAC**：首頁「MAC 名單與 Wi-Fi 線索」輸入 MAC，再按「比對 MAC 名單」。內建 [121 筆 MA-L 前綴](JiuJing/Resources/camera_oui.json)，從 [IEEE 公開資料](https://standards-oui.ieee.org/oui/oui.csv)於 2026-09-30 擷取 Axis Communications、Hangzhou Hikvision、Zhejiang Dahua 登記項目。不是完整 IEEE 名單或偷拍黑名單；不涵蓋 MA-M／MA-S，廠商也可能製造其他設備。
+- **Wi-Fi**：同頁可手動輸入名稱，或按「讀取目前 Wi-Fi」。後者需要精確位置授權與 `Access WiFi Information` entitlement；沒有呼叫 GPS 座標更新。拒絕、逾時或未連線時仍可手動輸入。依 [Apple fetchCurrent 文件](https://developer.apple.com/documentation/networkextension/nehotspotnetwork/fetchcurrent(completionhandler:))，此 API 不填入訊號強度，因此沒有將預設值冒充 RSSI；[iOS Wi-Fi API 限制](https://developer.apple.com/documentation/technotes/tn3111-ios-wifi-api-overview)也不允許一般 App 掃描所有附近網路。
+- **紅外線**：進入「相機輔助檢查」，選「紅外線亮點」，啟動後先以一般遙控器確認鏡頭可見閃光，關補光、降低環境光後巡視；更換鏡頭須重新確認。手機濾光片可能完全阻擋 IR，亮點也可能只是可見光。
+- **即時視覺**：同頁選「即時視覺」並啟動，查看每幀孤立亮點與含亮點矩形輪廓的數量，搭配預覽、放大與補光人工確認。玻璃、螢幕、金屬會誤報，小型、圓形或被遮蔽的設備可能完全漏掉。
+- **音訊**：首頁「音訊線索」啟動 10 秒分析。顯示取樣率、理論頻率上限、dBFS（非 dB SPL）與相對頻帶能量；2–20 kHz 範圍內高於平均頻譜 18 dB、數位音量高於 -65 dBFS 且連續三次頻率接近的音調會留下提示。這些是未經實機校準的啟發式門檻；充電器、燈具、昆蟲等也會符合，無聲設備不會被發現。
+
+新增的相機與音訊取樣只在記憶體即時處理，不保存原始媒體；離開頁面或進背景會停止，返回前景不會自動重啟。權限按功能啟動時才要求，手動 MAC／SSID 比對不要求權限。
+
+驗證：22 項單元測試與 11 項 UI 測試通過，1 項實機相機測試在模擬器略過；iOS Release 無簽章建置通過。詳細方式、結果與待實機項目見 [v0.3 驗證紀錄](docs/validation-v0.3.md)。
+
+## v0.2 已發佈實作範圍（歷史紀錄）
 
 版本：[v0.2](https://github.com/JiuJingLab/ios/releases/tag/v0.2)，App `0.2.0`，build `2`。目前提供內部 TestFlight 測試；詳細狀態以[發佈紀錄](docs/testflight.md)為準。
 
@@ -77,7 +105,7 @@ v0.2 的區網／BLE 規則比對與相機輔助都在手機端執行。沒有�
 
 ## 資料與資安
 
-以下雲端、AI 影像／音訊、帳號額度及認證內容是未來研究方向，**不是 v0.2 已提供的功能或已取得的認證**。是否需要伺服器，須由模型、裝置效能與隱私評估決定。
+以下雲端、AI 模型、帳號額度及認證內容是未來研究方向，**不是 v0.3 已提供的功能或已取得的認證**。本版只有本機規則與訊號／幾何分析；是否需要伺服器，須由模型、裝置效能與隱私評估決定。
 
 ### 設計原則
 
@@ -120,13 +148,14 @@ v0.2 的區網／BLE 規則比對與相機輔助都在手機端執行。沒有�
 ```bash
 git clone https://github.com/JiuJingLab/ios.git
 cd ios
+git switch codex/feat/v0.3
 ```
 
 需求：Xcode 26+（本次驗證版本 26.6）、iOS 16+。已提交 `JiuJing.xcodeproj`，可直接開啟；只有變更專案設定時才需要 XcodeGen 2.45+。
 
 ```bash
 open JiuJing.xcodeproj
-# 選擇 JiuJing scheme；實機執行時在 Signing & Capabilities 選擇自己的 Team。
+# 選擇 JiuJing scheme；實機執行時選擇自己的 Team，確認 App ID／profile 允許 Access WiFi Information。
 xcodebuild -project JiuJing.xcodeproj -scheme JiuJing -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test CODE_SIGNING_ALLOWED=NO
 ```
 
@@ -134,7 +163,7 @@ xcodebuild -project JiuJing.xcodeproj -scheme JiuJing -destination 'platform=iOS
 
 - [實機驗收清單](docs/device-validation.md)
 - [TestFlight 發佈與審查資料](docs/testflight.md)
-- [v0.2 隱私政策](docs/privacy.md)
+- [v0.3 隱私政策](docs/privacy.md)
 
 ---
 

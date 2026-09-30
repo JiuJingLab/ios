@@ -3,13 +3,15 @@ import AVFoundation
 
 enum CameraState { case idle, requesting, running, blocked, unavailable, failed }
 
-// Only this serial queue configures or starts/stops camera hardware. No media output is installed.
+// Capture and in-memory frame analysis share one serial queue. No recording output is installed.
 private final class CameraSession {
     let session = AVCaptureSession()
     private let queue = DispatchQueue(label: "org.jiujinglab.camera")
     private var device: AVCaptureDevice?
     private var observers: [NSObjectProtocol] = []
     private var report: ((CameraState, String, Bool) -> Void)?
+    private let analyzer = FrameAnalyzer()
+    private let output = AVCaptureVideoDataOutput()
 
     init() {
         for name in [AVCaptureSession.runtimeErrorNotification, AVCaptureSession.wasInterruptedNotification] {
@@ -24,7 +26,8 @@ private final class CameraSession {
     }
     deinit { observers.forEach(NotificationCenter.default.removeObserver) }
 
-    func start(front: Bool, report: @escaping (CameraState, String, Bool) -> Void) {
+    func start(front: Bool, mode: InspectionMode, clues: @escaping (FrameClues) -> Void,
+               report: @escaping (CameraState, String, Bool) -> Void) {
         queue.async {
             self.report = report
             self.stopHardware()
@@ -35,12 +38,27 @@ private final class CameraSession {
                 let input = try AVCaptureDeviceInput(device: device)
                 self.session.beginConfiguration()
                 self.session.inputs.forEach { self.session.removeInput($0) }
-                self.session.sessionPreset = .high
+                self.session.outputs.forEach { self.session.removeOutput($0) }
+                self.session.sessionPreset = .vga640x480
                 guard self.session.canAddInput(input) else {
                     self.session.commitConfiguration()
                     report(.failed, "無法使用此相機，請稍後再試。", false); return
                 }
                 self.session.addInput(input)
+                if mode != .preview {
+                    self.output.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
+                    self.output.alwaysDiscardsLateVideoFrames = true
+                    self.output.setSampleBufferDelegate(self.analyzer, queue: self.queue)
+                    guard self.session.canAddOutput(self.output) else {
+                        self.session.commitConfiguration()
+                        report(.failed, "無法啟用逐幀分析，請改用目視模式。", false); return
+                    }
+                    self.session.addOutput(self.output)
+                    if let connection = self.output.connection(with: .video), connection.isVideoOrientationSupported {
+                        connection.videoOrientation = .portrait
+                    }
+                }
+                self.analyzer.mode = mode; self.analyzer.report = clues; self.analyzer.reset()
                 self.session.commitConfiguration()
                 self.device = device
                 try device.lockForConfiguration()
@@ -81,6 +99,7 @@ private final class CameraSession {
         queue.async { self.report = nil; self.stopHardware() }
     }
     private func stopHardware() {
+        analyzer.report = nil
         if let device, device.hasTorch {
             if (try? device.lockForConfiguration()) != nil {
                 device.torchMode = .off
@@ -103,6 +122,8 @@ final class CameraController: ObservableObject {
     @Published private(set) var front = false
     @Published var zoom = 1.0
     @Published private(set) var maximumZoom = 1.0
+    @Published private(set) var mode: InspectionMode = .preview
+    @Published private(set) var clues: FrameClues?
     private var generation = UUID()
 
     func start() {
@@ -122,11 +143,16 @@ final class CameraController: ObservableObject {
             guard allowed else {
                 state = .blocked; message = "相機權限未允許。可到系統設定開啟，或繼續使用 Wi-Fi／BLE。"; return
             }
-            capture.start(front: front) { [weak self] state, message, torch in
+            capture.start(front: front, mode: mode, clues: { [weak self] clues in
+                Task { @MainActor in
+                    guard let self, self.generation == token else { return }
+                    self.clues = clues
+                }
+            }) { [weak self] state, message, torch in
                 Task { @MainActor in
                     guard let self, self.generation == token else { return }
                     self.state = state; self.message = message; self.hasTorch = torch
-                    if state != .running { self.torchOn = false }
+                    if state != .running { self.torchOn = false; self.clues = nil }
                     if state == .running {
                         self.capture.maximumZoom { [weak self] maximum in
                             Task { @MainActor in
@@ -143,9 +169,15 @@ final class CameraController: ObservableObject {
     func stop() {
         generation = UUID(); capture.stop()
         state = .idle; hasTorch = false; torchOn = false; zoom = 1; maximumZoom = 1
+        clues = nil
         message = "相機已停止，畫面未儲存。"
     }
     func switchCamera() { stop(); front.toggle(); start() }
+    func selectMode(_ mode: InspectionMode) {
+        let wasRunning = state == .running
+        stop(); self.mode = mode
+        if wasRunning { start() }
+    }
     func setZoom(_ value: Double) { capture.zoom(CGFloat(value)) }
     func toggleTorch() {
         let token = generation
@@ -187,12 +219,16 @@ struct CameraInspectionView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.scenePhase) private var scenePhase
     @State private var showIR = false
+    @State private var calibrated = false
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     Label("人工目視輔助 · 不會自動判定攝影機", systemImage: "info.circle")
                         .font(.subheadline.weight(.semibold))
+                    Picker("相機分析模式", selection: Binding(get: { camera.mode }, set: { camera.selectMode($0); calibrated = false })) {
+                        ForEach(InspectionMode.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                    }.pickerStyle(.segmented).disabled(camera.state == .requesting).accessibilityIdentifier("inspectionMode")
                     ZStack {
                         Color.black
                         CameraPreview(session: camera.session).opacity(camera.state == .running ? 1 : 0)
@@ -206,6 +242,20 @@ struct CameraInspectionView: View {
                         }
                     }.frame(height: 300).clipShape(RoundedRectangle(cornerRadius: 22))
                     Text(camera.message).font(.subheadline).accessibilityIdentifier("cameraStatus")
+                    if camera.mode != .preview {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("實驗性本機分析").font(.headline)
+                            Text(camera.clues?.summary ?? "尚無分析結果；啟動相機後每秒最多分析兩幀。")
+                                .accessibilityIdentifier("frameAnalysisResult")
+                            if camera.mode == .infrared {
+                                Toggle("已用遙控器確認此鏡頭看得到閃光", isOn: $calibrated)
+                                Text(calibrated ? "僅確認這支遙控器可見，不代表所有 IR 波段都可見。請關閉補光，降低環境光並緩慢巡視。" : "先展開下方指引，以遙控器檢查鏡頭反應。尚未校驗時，亮點不可解讀為紅外線。")
+                                Text("只找孤立亮點，無法分辨紅外線與可見光。光源、反射、過曝均可能誤報；看不到不代表沒有夜視攝影機。")
+                            } else {
+                                Text("分析孤立反光與包圍亮點的矩形輪廓，協助留意可能的外殼。不具攝影機語意辨識能力；玻璃、螢幕和裝飾品也可能符合。")
+                            }
+                        }.font(.subheadline).padding().background(Color.orange.opacity(0.08), in: RoundedRectangle(cornerRadius: 16))
+                    }
                     if camera.state == .running {
                         HStack {
                             Text("放大").font(.subheadline)
@@ -217,7 +267,7 @@ struct CameraInspectionView: View {
                         HStack {
                             Button { camera.toggleTorch() } label: { Label(camera.torchOn ? "關閉補光" : "開啟補光", systemImage: "flashlight.on.fill") }.disabled(!camera.hasTorch)
                             Spacer()
-                            Button { camera.switchCamera() } label: { Label("切換鏡頭", systemImage: "arrow.triangle.2.circlepath.camera") }
+                            Button { calibrated = false; camera.switchCamera() } label: { Label("切換鏡頭", systemImage: "arrow.triangle.2.circlepath.camera") }
                         }.buttonStyle(.bordered)
                     }
                     Button {

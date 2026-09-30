@@ -31,6 +31,8 @@ struct HomeView: View {
     @State private var showGuide = false
     @State private var showPrivacy = false
     @State private var showCamera = false
+    @State private var showNetworkClues = false
+    @State private var showAudio = false
     @State private var onlyReview = false
     @State private var previousReviewCount = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -111,13 +113,23 @@ struct HomeView: View {
                             Image(systemName: "camera.viewfinder").font(.title2)
                             VStack(alignment: .leading, spacing: 5) {
                                 Text("相機輔助檢查").font(.headline)
-                                Text("即時預覽 · 放大 · 補光 · 紅外線檢查指引").font(.footnote)
+                                Text("紅外線亮點 · 反光與輪廓 · 放大補光").font(.footnote)
                             }
                             Spacer()
                             Image(systemName: "chevron.right")
                         }.padding(20).foregroundStyle(forest)
                             .background(forest.opacity(0.07), in: RoundedRectangle(cornerRadius: 20))
                     }.disabled(running).accessibilityIdentifier("cameraInspection")
+                    Button { showNetworkClues = true } label: {
+                        Label("MAC 名單與 Wi-Fi 線索", systemImage: "wifi")
+                            .font(.headline).frame(maxWidth: .infinity, alignment: .leading).padding(20)
+                            .background(forest.opacity(0.07), in: RoundedRectangle(cornerRadius: 20))
+                    }.disabled(running).accessibilityIdentifier("networkClues")
+                    Button { showAudio = true } label: {
+                        Label("音訊線索 · 10 秒頻譜分析", systemImage: "waveform")
+                            .font(.headline).frame(maxWidth: .infinity, alignment: .leading).padding(20)
+                            .background(forest.opacity(0.07), in: RoundedRectangle(cornerRadius: 20))
+                    }.disabled(running).accessibilityIdentifier("audioInspection")
                     Button { showGuide = true } label: {
                         HStack(alignment: .top, spacing: 14) {
                             Image(systemName: "flashlight.on.fill").font(.title2)
@@ -141,6 +153,8 @@ struct HomeView: View {
                 .sheet(isPresented: $showGuide) { GuideView() }
                 .sheet(isPresented: $showPrivacy) { PrivacyView() }
                 .sheet(isPresented: $showCamera) { CameraInspectionView() }
+                .sheet(isPresented: $showNetworkClues) { NetworkCluesView() }
+                .sheet(isPresented: $showAudio) { AudioInspectionView() }
                 .onChange(of: mode) { _ in onlyReview = false; previousReviewCount = summary.reviewCount }
                 .onChange(of: summary.reviewCount) { count in
                     if count > 0 && previousReviewCount == 0 && running {
@@ -171,7 +185,7 @@ struct HomeView: View {
                 Text("JIUJING LAB").font(.system(size: 9, weight: .semibold, design: .monospaced)).tracking(2)
             }
             Spacer()
-            Text("v0.2").font(.caption.monospaced()).foregroundStyle(forest)
+            Text("v0.3").font(.caption.monospaced()).foregroundStyle(forest)
                 .padding(.horizontal, 12).padding(.vertical, 7).background(forest.opacity(0.08), in: Capsule())
         }
     }
@@ -278,10 +292,11 @@ struct GuideView: View {
                     Label("查看插座、時鐘、煙霧偵測器等物品是否有異常孔洞；不要自行拆卸。", systemImage: "magnifyingglass")
                     Label("向管理者確認設備用途；有疑慮時保留現場並求助。", systemImage: "person.crop.circle.badge.questionmark")
                 }
-                Section("v0.2 能力限制") {
+                Section("v0.3 能力限制") {
                     Text("區網：僅限同一 Wi-Fi 的 IPv4、6 個常見 TCP 端口與 3 類 Bonjour 服務。大型網段只掃手機附近的 /24 範圍。訪客隔離、VPN、防火牆、逾時與權限限制都可能造成遺漏。")
                     Text("BLE：只看正在廣播的低功耗藍牙裝置。名稱可偽裝；訊號受牆面、遮蔽物與硬體影響，不代表距離。")
-                    Text("不支援自動讀取周邊 MAC/OUI、全部 Wi-Fi SSID 掃描或錄音分析。相機僅提供本機即時預覽、放大與補光，不是自動辨識或紅外線偵測器。無法保證發現離線攝影機。")
+                    Text("MAC/OUI 以手動輸入或目前存取點 BSSID 比對；Wi-Fi 只讀取目前連線或手動輸入，不掃描全部 SSID。訊號強弱不代表距離或設備種類。")
+                    Text("相機的紅外線亮點與反光／輪廓分析、麥克風的窄帶音分析均為實驗性線索，不是攝影機辨識模型。無法保證發現離線或無聲設備。")
                     Text("結果是待確認的線索，不能證明有偷拍，也不能證明沒有偷拍。")
                 }
             }.navigationTitle("多一層檢查").toolbar { Button("完成") { dismiss() } }
@@ -295,13 +310,13 @@ struct PrivacyView: View {
         NavigationStack {
             List {
                 Section("資料留在你的手機") {
-                    Text("v0.2 無帳號、廣告、分析 SDK 或雲端服務。裝置名稱、IP、端口、BLE 識別碼與訊號只在 App 記憶體中暫存；離開 App 不會持續掃描。")
+                    Text("v0.3 無帳號、廣告、分析 SDK 或雲端服務。裝置名稱、IP、端口、BLE 識別碼、MAC、SSID 與量測資料只在 App 記憶體中暫存；離開 App 不會持續掃描。")
                     Text("按「清除」、重新開始該類掃描，或 App 程序結束後，該次結果即清除。不寫入掃描紀錄、不上傳、不販售資料。")
                 }
                 Section("權限用途") {
                     Text("本機網路：探索同網路服務與 TCP 端口，不讀取影像、不登入設備。")
-                    Text("藍牙：讀取廣播，不配對、不連線。不要求位置或麥克風。")
-                    Text("相機：由你點選啟動後，用於即時目視檢查。畫面不錄製、不拍照、不儲存、不上傳；離開檢查頁或切到背景即停止。")
+                    Text("藍牙：讀取廣播，不配對、不連線。位置（選用）：只為讀取目前 Wi-Fi 名稱與存取點 BSSID，需精確位置授權，不取得 GPS 座標；可拒絕並改用手動輸入。")
+                    Text("相機：由你啟動後提供預覽與本機亮點／輪廓分析。麥克風：由你啟動後分析 10 秒環境音的頻譜，不辨識語音。影像與聲音不錄製檔案、不儲存、不上傳；關閉頁面或切到背景即停止。")
                     Button("開啟系統設定") {
                         if let url = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(url) }
                     }
@@ -309,7 +324,7 @@ struct PrivacyView: View {
                 Section("公開透明") {
                     Link("查看原始碼與回報問題", destination: URL(string: "https://github.com/JiuJingLab/ios")!)
                     Text("外部連結由你的瀏覽器開啟，適用該網站的隱私政策。")
-                    Text("JiuJing Lab 揪鏡實驗室 · v0.2 · 2026-09-30").font(.footnote)
+                    Text("JiuJing Lab 揪鏡實驗室 · v0.3 · 2026-09-30").font(.footnote)
                 }
             }.navigationTitle("隱私與資料").toolbar { Button("完成") { dismiss() } }
         }.tint(forest)

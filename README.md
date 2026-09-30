@@ -1,4 +1,4 @@
-# JiuJing 揪鏡
+# JiuJing 揪鏡 · v0.2
 
 <img src="docs/brand/jiujing-logo.png" alt="揪鏡 Logo" width="128" height="128">
 
@@ -6,10 +6,17 @@
 > A free, open-source, trustworthy anti-hidden-camera tool — built as a public good.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Release: v0.2](https://img.shields.io/badge/release-v0.2-green)](https://github.com/JiuJingLab/ios/releases/tag/v0.2)
 [![Platform](https://img.shields.io/badge/platform-iOS%2016%2B-blue)]()
 [![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-v1.0-ff69b4)](https://github.com/JiuJingLab/Code-of-Conduct)
 
 **不應該只有偷拍工具。這世界也應該有免費、可信任的公益反偷拍工具。**
+
+## 影片介紹
+
+[![觀看揪鏡介紹影片：還給使用者一個乾淨、無偷拍、私密的安全空間](https://i.ytimg.com/vi/lftKUIdO3tI/hqdefault.jpg)](https://youtube.com/shorts/lftKUIdO3tI?si=zCjGtetUNFP0gS71)
+
+[▶ 點擊縮圖，在 YouTube 觀看揪鏡介紹影片](https://youtube.com/shorts/lftKUIdO3tI?si=zCjGtetUNFP0gS71)
 
 ---
 
@@ -52,7 +59,7 @@ v0.2 的區網／BLE 規則比對與相機輔助都在手機端執行。沒有�
 
 ## v0.2 實作範圍
 
-開發分支：[v0.2](https://github.com/JiuJingLab/ios/tree/v0.2)，版本 `0.2.0`，build `2`。TestFlight 狀態以[發佈紀錄](docs/testflight.md)為準。
+版本：[v0.2](https://github.com/JiuJingLab/ios/releases/tag/v0.2)，App `0.2.0`，build `2`。目前提供內部 TestFlight 測試；詳細狀態以[發佈紀錄](docs/testflight.md)為準。
 
 - SwiftUI 原生介面，iPhone／iPad、iOS 16+；沿用核定的 JiuJing 揪鏡 Logo。
 - **更清楚的掃描結果**：頂部大型狀態卡、待確認／總紀錄數、警示圖示、醒目外框、命中原因、直接查看待確認線索；支援深色模式與 VoiceOver 提醒。

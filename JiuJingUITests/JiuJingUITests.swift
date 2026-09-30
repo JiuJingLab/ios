@@ -173,4 +173,21 @@ final class JiuJingUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["frameAnalysisResult"].label.contains("尚無分析結果"))
         capture(app, name: "v03-camera-analysis")
     }
+    func testVerificationRequiresConsentAndRejectsNonLocalAddress() {
+        let app = XCUIApplication()
+        app.launch()
+        tap(app.buttons["cameraVerification"], in: app)
+        XCTAssertFalse(app.buttons["verificationStart"].isEnabled)
+        let address = app.textFields["verificationAddress"]
+        tap(address, in: app); address.typeText("http://8.8.8.8/\n")
+        let consent = app.switches["verificationConsent"]
+        consent.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
+        XCTAssertTrue(app.buttons["verificationStart"].isEnabled)
+        tap(app.buttons["verificationStart"], in: app)
+        XCTAssertTrue(app.staticTexts["verificationMessage"].label.contains("私有 IPv4"))
+        XCTAssertEqual(app.staticTexts["verificationTitle"].label, "尚未確認")
+        capture(app, name: "v03-verification-guard")
+        tap(app.buttons["清除畫面與結果"], in: app)
+        XCTAssertEqual(app.staticTexts["verificationTitle"].label, "尚未確認")
+    }
 }

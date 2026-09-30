@@ -168,4 +168,4 @@ xcodebuild -project JiuJing.xcodeproj -scheme JiuJing -destination 'platform=iOS
 
 ---
 
-**Made in Taiwan 🇹🇼 · 還給每個人一片揪鏡**
+**Made in Taiwan 🇹🇼 · 守護每個人的隱私與安心**

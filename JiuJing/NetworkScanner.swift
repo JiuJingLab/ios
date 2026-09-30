@@ -6,6 +6,8 @@ import Darwin
 final class NetworkScanner: ObservableObject {
     @Published private(set) var findings: [Finding] = []
     @Published private(set) var running = false
+    @Published private(set) var phase: ScanPhase = .idle
+    private var limitedCoverage = false
     @Published private(set) var progress = 0.0
     @Published private(set) var status = "連上要檢查的 Wi-Fi 後開始"
     @Published private(set) var coverage = "IPv4 常見端口與 Bonjour 服務"
@@ -23,10 +25,10 @@ final class NetworkScanner: ObservableObject {
 
     init() {
         #if DEBUG
-        if ProcessInfo.processInfo.arguments.contains("--ui-test-findings") {
-            findings = [Finding(id: "fixture-rtsp", name: "RTSP 測試裝置（模擬）", source: .network,
-                address: "192.0.2.10", ports: [554], reasons: ["模擬的 RTSP 測試線索，不是實際偵測結果。"])]
-            status = "UI 測試資料；尚未執行掃描"
+        if let scenario = ScanFixture.scenario(for: .network) {
+            findings = ScanFixture.findings(scenario, source: .network)
+            phase = scenario == "partial" ? .partial : scenario == "failed" ? .failed : .completed
+            status = "模擬測試資料；不代表實際掃描"
         }
         #endif
     }
@@ -35,11 +37,14 @@ final class NetworkScanner: ObservableObject {
         stop()
         findings = []
         progress = 0
+        limitedCoverage = false
+        coverage = "正在確認可檢查的網路範圍"
         guard let rules = try? DetectionRules.load() else {
-            status = "無法讀取偵測名單，請重新安裝 App。"; return
+            phase = .failed; status = "無法讀取偵測名單，請重新安裝 App。"; return
         }
         self.rules = rules
         running = true
+        phase = .scanning
         status = "正在確認 Wi-Fi；首次使用請允許本機網路權限"
         let token = generation
         let monitor = NWPathMonitor(requiredInterfaceType: .wifi)
@@ -52,14 +57,15 @@ final class NetworkScanner: ObservableObject {
                 }
                 let names = Set(path.availableInterfaces.filter { $0.type == .wifi }.map(\.name))
                 guard let (subnet, interface) = Self.wifiSubnet(names: names) else {
-                    self.finish("此 Wi-Fi 沒有可用的 IPv4 位址；v0.1 無法掃描此網路。"); return
+                    self.finish("此 Wi-Fi 沒有可用的 IPv4 位址；v0.2 無法掃描此網路。"); return
                 }
                 if let previous = self.selectedSubnet {
                     if previous != subnet.label || self.selectedInterface != interface {
-                        self.finish("Wi-Fi 已改變，掃描已停止；請重新開始。")
+                        self.finish("Wi-Fi 已改變，掃描已停止；請重新開始。", phase: .partial)
                     }
                     return
                 }
+                self.limitedCoverage = subnet.isPartial
                 self.selectedInterface = interface
                 self.selectedSubnet = subnet.label
                 self.coverage = "\(subnet.label) · \(subnet.hosts.count) 個位址 · \(rules.ports.count) 個端口" + (subnet.isPartial ? "（僅手機所在 /24 範圍）" : "")
@@ -72,7 +78,7 @@ final class NetworkScanner: ObservableObject {
         monitor.start(queue: .main)
         let deadline = DispatchWorkItem { [weak self] in
             guard let self, self.generation == token, self.running else { return }
-            self.finish("掃描逾時，結果可能不完整。確認網路權限後再試。")
+            self.finish("掃描逾時，結果可能不完整。確認網路權限後再試。", phase: .partial)
         }
         self.deadline = deadline
         DispatchQueue.main.asyncAfter(deadline: .now() + 60, execute: deadline)
@@ -90,12 +96,12 @@ final class NetworkScanner: ObservableObject {
         active.forEach { $0.cancel() }
         jobs = []; cursor = 0; completed = 0
         selectedInterface = nil; selectedSubnet = nil
-        if wasRunning { status = "已停止，顯示部分結果；可重新掃描。" }
+        if wasRunning { phase = .partial; status = "已停止，顯示部分結果；可重新掃描。" }
     }
 
-    func clear() { stop(); findings = []; progress = 0; status = "結果已清除" }
+    func clear() { stop(); findings = []; progress = 0; phase = .idle; status = "結果已清除"; coverage = "IPv4 常見端口與 Bonjour 服務" }
 
-    private func finish(_ message: String) { stop(); status = message }
+    private func finish(_ message: String, phase: ScanPhase = .failed) { stop(); self.phase = phase; status = message }
 
     private func browse(token: UUID) {
         for type in ["_rtsp._tcp", "_http._tcp", "_axis-video._tcp"] {
@@ -158,7 +164,7 @@ final class NetworkScanner: ObservableObject {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
                 guard let self, self.running, self.generation == token else { return }
                 self.progress = 1
-                self.finish("本輪掃描結束。未發現線索不代表空間安全；被隔離或未回應的裝置可能無法顯示。")
+                self.finish(self.limitedCoverage ? "本輪僅檢查部分網段；其他範圍尚未檢查。" : "本輪掃描結束。被隔離、逾時或未回應的裝置可能無法顯示。", phase: self.limitedCoverage ? .partial : .completed)
             }
         }
     }

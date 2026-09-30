@@ -2,10 +2,24 @@ import SwiftUI
 
 @main
 struct JiuJingApp: App {
-    var body: some Scene { WindowGroup { HomeView() } }
+    var body: some Scene {
+        WindowGroup {
+            #if DEBUG
+            if ProcessInfo.processInfo.arguments.contains("--ui-test-accessibility") {
+                HomeView().environment(\.dynamicTypeSize, .accessibility3).preferredColorScheme(.dark)
+            } else { HomeView() }
+            #else
+            HomeView()
+            #endif
+        }
+    }
 }
 
-private let forest = Color(red: 0.10, green: 0.31, blue: 0.25)
+private let forest = Color(uiColor: UIColor { traits in
+    traits.userInterfaceStyle == .dark ? UIColor(red: 0.48, green: 0.83, blue: 0.69, alpha: 1)
+        : UIColor(red: 0.10, green: 0.31, blue: 0.25, alpha: 1)
+})
+private let actionForest = Color(red: 0.10, green: 0.31, blue: 0.25)
 private let paper = Color(uiColor: .systemGroupedBackground)
 
 struct HomeView: View {
@@ -16,7 +30,20 @@ struct HomeView: View {
     @State private var consent = false
     @State private var showGuide = false
     @State private var showPrivacy = false
+    @State private var showCamera = false
+    @State private var onlyReview = false
+    @State private var previousReviewCount = 0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    private var phase: ScanPhase { mode == 0 ? network.phase : bluetooth.phase }
+    private var summary: ScanSummary { ScanSummary(phase: phase, findings: findings) }
 
+    init() {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("bluetooth:review") || ProcessInfo.processInfo.arguments.contains("bluetooth:empty") || ProcessInfo.processInfo.arguments.contains("bluetooth:partial") || ProcessInfo.processInfo.arguments.contains("bluetooth:failed") {
+            _mode = State(initialValue: 1)
+        }
+        #endif
+    }
     private var running: Bool { network.running || bluetooth.running }
     private var findings: [Finding] {
         (mode == 0 ? network.findings : bluetooth.findings).sorted {
@@ -26,15 +53,28 @@ struct HomeView: View {
     }
     var body: some View {
         NavigationStack {
+            ScrollViewReader { proxy in
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     header
                     #if DEBUG
-                    if ProcessInfo.processInfo.arguments.contains("--ui-test-findings") {
+                    if ProcessInfo.processInfo.arguments.contains("--ui-test-findings") || ProcessInfo.processInfo.arguments.contains("--ui-test-scan") {
                         Text("模擬測試資料・不代表實際偵測").font(.footnote).foregroundStyle(.orange)
                     }
                     #endif
-                    hero
+                    ScanSummaryCard(summary: summary, progress: mode == 0 ? network.progress : bluetooth.progress,
+                        status: mode == 0 ? network.status : bluetooth.status, source: mode == 0 ? "Wi-Fi 區網" : "藍牙 BLE")
+                        .id("summary")
+                    if summary.reviewCount > 0 {
+                        Button {
+                            onlyReview = true
+                            withAnimation(reduceMotion ? nil : .easeInOut) { proxy.scrollTo("results", anchor: .top) }
+                        } label: {
+                            Label("查看待確認線索", systemImage: "arrow.down.circle.fill").font(.headline)
+                                .frame(maxWidth: .infinity).padding(16)
+                                .foregroundStyle(reviewAccent).background(reviewAccent.opacity(0.12), in: RoundedRectangle(cornerRadius: 16))
+                        }.accessibilityIdentifier("reviewFindings")
+                    }
                     VStack(alignment: .leading, spacing: 18) {
                         Text("選擇檢查方式").font(.headline)
                         Picker("檢查方式", selection: $mode) {
@@ -50,23 +90,34 @@ struct HomeView: View {
                             if running { network.stop(); bluetooth.stop() }
                             else if mode == 0 { network.start() }
                             else { bluetooth.start() }
+                            onlyReview = false
+                            withAnimation(reduceMotion ? nil : .easeInOut) { proxy.scrollTo("summary", anchor: .top) }
                         } label: {
                             HStack {
                                 Image(systemName: running ? "stop.fill" : "viewfinder")
-                                Text(running ? "停止掃描" : "開始檢查").fontWeight(.semibold)
+                                Text(running ? "停止掃描" : phase == .idle ? "開始檢查" : "重新掃描").fontWeight(.semibold)
                                 Spacer()
                                 Image(systemName: "arrow.right")
                             }.padding(18).foregroundStyle(.white)
-                                .background(consent || running ? forest : Color.gray, in: RoundedRectangle(cornerRadius: 16))
+                                .background(consent || running ? actionForest : Color.gray, in: RoundedRectangle(cornerRadius: 16))
                         }.disabled(!consent && !running).accessibilityIdentifier("scanButton")
-                        if running { ProgressView(value: mode == 0 ? network.progress : bluetooth.progress).tint(forest) }
-                        Text(mode == 0 ? network.status : bluetooth.status)
-                            .font(.footnote).foregroundStyle(.secondary).accessibilityIdentifier("scanStatus")
                         if mode == 0 {
                             Text(network.coverage).font(.caption).foregroundStyle(.secondary)
                         }
                     }.padding(20).background(Color(uiColor: .secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 24))
-                    results
+                    results.id("results")
+                    Button { showCamera = true } label: {
+                        HStack(spacing: 14) {
+                            Image(systemName: "camera.viewfinder").font(.title2)
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text("相機輔助檢查").font(.headline)
+                                Text("即時預覽 · 放大 · 補光 · 紅外線檢查指引").font(.footnote)
+                            }
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                        }.padding(20).foregroundStyle(forest)
+                            .background(forest.opacity(0.07), in: RoundedRectangle(cornerRadius: 20))
+                    }.disabled(running).accessibilityIdentifier("cameraInspection")
                     Button { showGuide = true } label: {
                         HStack(alignment: .top, spacing: 14) {
                             Image(systemName: "flashlight.on.fill").font(.title2)
@@ -89,9 +140,24 @@ struct HomeView: View {
                 .navigationBarHidden(true)
                 .sheet(isPresented: $showGuide) { GuideView() }
                 .sheet(isPresented: $showPrivacy) { PrivacyView() }
+                .sheet(isPresented: $showCamera) { CameraInspectionView() }
+                .onChange(of: mode) { _ in onlyReview = false; previousReviewCount = summary.reviewCount }
+                .onChange(of: summary.reviewCount) { count in
+                    if count > 0 && previousReviewCount == 0 && running {
+                        UINotificationFeedbackGenerator().notificationOccurred(.warning)
+                        UIAccessibility.post(notification: .announcement, argument: summary.title)
+                    }
+                    previousReviewCount = count
+                }
+                .onChange(of: phase) { value in
+                    if value == .completed || value == .partial || value == .failed {
+                        UIAccessibility.post(notification: .announcement, argument: summary.title + "，" + summary.label)
+                    }
+                }
                 .onChange(of: scenePhase) { phase in
                     if phase == .background { network.stop(); bluetooth.stop() }
                 }
+            }
         }.tint(forest)
     }
     private var header: some View {
@@ -105,25 +171,14 @@ struct HomeView: View {
                 Text("JIUJING LAB").font(.system(size: 9, weight: .semibold, design: .monospaced)).tracking(2)
             }
             Spacer()
-            Text("v0.1").font(.caption.monospaced()).foregroundStyle(forest)
+            Text("v0.2").font(.caption.monospaced()).foregroundStyle(forest)
                 .padding(.horizontal, 12).padding(.vertical, 7).background(forest.opacity(0.08), in: Capsule())
         }
-    }
-    private var hero: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Label("給自己的空間，多一份留意", systemImage: "leaf").font(.caption.weight(.medium))
-            Text("安心之前，\n先揪出線索。").font(.system(size: 34, weight: .bold, design: .rounded)).fixedSize(horizontal: false, vertical: true)
-            Text("用 Wi-Fi 與藍牙探索周遭裝置，\n把值得確認的線索，交回你手中。")
-                .font(.subheadline).lineSpacing(5)
-            Label("沒有發現 ≠ 沒有偷拍設備", systemImage: "info.circle")
-                .font(.footnote.weight(.semibold)).padding(.top, 4)
-        }.frame(maxWidth: .infinity, alignment: .leading).padding(24)
-            .foregroundStyle(.white).background(forest, in: RoundedRectangle(cornerRadius: 28))
     }
     private var results: some View {
         VStack(alignment: .leading, spacing: 14) {
             HStack {
-                Text("本次線索").font(.title3.bold())
+                Text("掃描結果").font(.title3.bold())
                 Text("\(findings.count)").font(.caption.monospaced()).foregroundStyle(.secondary)
                 Spacer()
                 if !findings.isEmpty {
@@ -133,7 +188,8 @@ struct HomeView: View {
             }
             if findings.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("尚無裝置線索").font(.headline)
+                    Label(phase == .idle ? "尚無裝置線索" : phase == .completed ? "本輪沒有裝置回應" : "尚無可顯示的結果", systemImage: "tray")
+                        .font(.headline)
                     Text("掃描只能看見部分裝置。離線攝影機、隔離網路與未廣播設備，可能完全不會出現。")
                         .font(.footnote).foregroundStyle(.secondary)
                 }.frame(maxWidth: .infinity, alignment: .leading).padding(20)
@@ -141,7 +197,15 @@ struct HomeView: View {
             } else {
                 Text("數量為位址／服務紀錄，同一設備可能重複出現。一般網頁服務與藍牙裝置不等於攝影機。")
                     .font(.caption).foregroundStyle(.secondary)
-                ForEach(findings) { finding in
+                Picker("結果篩選", selection: $onlyReview) {
+                    Text("全部 \(findings.count)").tag(false)
+                    Text("待確認 \(summary.reviewCount)").tag(true)
+                }.pickerStyle(.segmented).accessibilityIdentifier("resultFilter")
+                if onlyReview && summary.reviewCount == 0 {
+                    Text("目前沒有命中規則的線索；可切回「全部」查看其他紀錄。")
+                        .font(.subheadline).foregroundStyle(.secondary).padding(.vertical, 12)
+                }
+                ForEach(findings.filter { !onlyReview || $0.needsReview }) { finding in
                     NavigationLink { FindingView(finding: finding) } label: { FindingRow(finding: finding) }
                         .buttonStyle(.plain)
                         .accessibilityIdentifier("finding-\(finding.id)")
@@ -156,17 +220,21 @@ struct FindingRow: View {
     var body: some View {
         HStack(spacing: 14) {
             Image(systemName: finding.needsReview ? "exclamationmark.magnifyingglass" : "dot.radiowaves.left.and.right")
-                .font(.title2).foregroundStyle(finding.needsReview ? Color.orange : forest)
+                .font(.title2).foregroundStyle(finding.needsReview ? reviewAccent : forest)
             VStack(alignment: .leading, spacing: 6) {
                 Text(finding.name).font(.headline).lineLimit(2)
                 Text(finding.source == .network ? finding.address : "BLE 廣播 · \(finding.rssi.map { "\($0) dBm" } ?? "訊號未知")")
                     .font(.caption).foregroundStyle(.secondary).lineLimit(1)
-                Text(finding.needsReview ? "有線索，請人工確認" : "未命中規則，仍需留意")
-                    .font(.caption.weight(.medium)).foregroundStyle(finding.needsReview ? Color.orange : .secondary)
+                Label(finding.needsReview ? "待確認 · 命中線索規則" : "未命中目前規則", systemImage: finding.needsReview ? "exclamationmark.triangle.fill" : "info.circle")
+                    .font(.caption.bold()).foregroundStyle(finding.needsReview ? reviewAccent : .secondary)
+                if let reason = finding.reasons.first {
+                    Text(reason).font(.footnote).foregroundStyle(.secondary).lineLimit(3)
+                }
             }
             Spacer(minLength: 0)
             Image(systemName: "chevron.right").font(.caption).foregroundStyle(.secondary)
-        }.padding(18).background(Color(uiColor: .secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 20))
+        }.padding(18).background(finding.needsReview ? reviewAccent.opacity(0.08) : Color(uiColor: .secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 20))
+            .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(finding.needsReview ? reviewAccent.opacity(0.5) : .clear, lineWidth: 1.5))
     }
 }
 
@@ -210,10 +278,10 @@ struct GuideView: View {
                     Label("查看插座、時鐘、煙霧偵測器等物品是否有異常孔洞；不要自行拆卸。", systemImage: "magnifyingglass")
                     Label("向管理者確認設備用途；有疑慮時保留現場並求助。", systemImage: "person.crop.circle.badge.questionmark")
                 }
-                Section("v0.1 能力限制") {
+                Section("v0.2 能力限制") {
                     Text("區網：僅限同一 Wi-Fi 的 IPv4、6 個常見 TCP 端口與 3 類 Bonjour 服務。大型網段只掃手機附近的 /24 範圍。訪客隔離、VPN、防火牆、逾時與權限限制都可能造成遺漏。")
                     Text("BLE：只看正在廣播的低功耗藍牙裝置。名稱可偽裝；訊號受牆面、遮蔽物與硬體影響，不代表距離。")
-                    Text("不支援 MAC/OUI 讀取、全部 Wi-Fi SSID 掃描、紅外線、相機辨識或錄音分析。無法偵測只寫入記憶卡的離線攝影機。")
+                    Text("不支援自動讀取周邊 MAC/OUI、全部 Wi-Fi SSID 掃描或錄音分析。相機僅提供本機即時預覽、放大與補光，不是自動辨識或紅外線偵測器。無法保證發現離線攝影機。")
                     Text("結果是待確認的線索，不能證明有偷拍，也不能證明沒有偷拍。")
                 }
             }.navigationTitle("多一層檢查").toolbar { Button("完成") { dismiss() } }
@@ -227,12 +295,13 @@ struct PrivacyView: View {
         NavigationStack {
             List {
                 Section("資料留在你的手機") {
-                    Text("v0.1 無帳號、廣告、分析 SDK 或雲端服務。裝置名稱、IP、端口、BLE 識別碼與訊號只在 App 記憶體中暫存；離開 App 不會持續掃描。")
+                    Text("v0.2 無帳號、廣告、分析 SDK 或雲端服務。裝置名稱、IP、端口、BLE 識別碼與訊號只在 App 記憶體中暫存；離開 App 不會持續掃描。")
                     Text("按「清除」、重新開始該類掃描，或 App 程序結束後，該次結果即清除。不寫入掃描紀錄、不上傳、不販售資料。")
                 }
                 Section("權限用途") {
                     Text("本機網路：探索同網路服務與 TCP 端口，不讀取影像、不登入設備。")
-                    Text("藍牙：讀取廣播，不配對、不連線。不要求位置、相機或麥克風。")
+                    Text("藍牙：讀取廣播，不配對、不連線。不要求位置或麥克風。")
+                    Text("相機：由你點選啟動後，用於即時目視檢查。畫面不錄製、不拍照、不儲存、不上傳；離開檢查頁或切到背景即停止。")
                     Button("開啟系統設定") {
                         if let url = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(url) }
                     }
@@ -240,7 +309,7 @@ struct PrivacyView: View {
                 Section("公開透明") {
                     Link("查看原始碼與回報問題", destination: URL(string: "https://github.com/JiuJingLab/ios")!)
                     Text("外部連結由你的瀏覽器開啟，適用該網站的隱私政策。")
-                    Text("JiuJing Lab 揪鏡實驗室 · v0.1 · 2026-09-29").font(.footnote)
+                    Text("JiuJing Lab 揪鏡實驗室 · v0.2 · 2026-09-30").font(.footnote)
                 }
             }.navigationTitle("隱私與資料").toolbar { Button("完成") { dismiss() } }
         }.tint(forest)

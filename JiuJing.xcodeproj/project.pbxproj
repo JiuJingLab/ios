@@ -14,8 +14,11 @@
 		48C915E32D5B5A1C24627E9E /* Detection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D1A3EE88AD905EE6A8552E /* Detection.swift */; };
 		78061E79C637A4BCDAD4E32D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D33785ECD34AA4AE8FC5404 /* Assets.xcassets */; };
 		A623B74A2BDD99C4FC351669 /* JiuJingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73549A1CAA801719693C420 /* JiuJingUITests.swift */; };
+		A6CA1E5DD1BAF24207342931 /* CameraHardwareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9428DAFBC99CCD9F013CC1A3 /* CameraHardwareTests.swift */; };
+		C14E328E9F70E3F723F76BB5 /* CameraInspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B68EE8601D02058582AC948 /* CameraInspection.swift */; };
 		CCDCB83454136F5D83F9B8D4 /* NetworkScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0E2AADD1999F169C54EBF /* NetworkScanner.swift */; };
 		EC016299A237A7D9A760905D /* BluetoothScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9832AD397E7640B275F5C45 /* BluetoothScanner.swift */; };
+		FA840730D392BAD5A8B7B828 /* ScanSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADA7B8791AE5366F1BDE9DB /* ScanSummary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,10 +40,13 @@
 
 /* Begin PBXFileReference section */
 		02AAA1429ACBC443BD2AB02D /* JiuJing.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = JiuJing.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0ADA7B8791AE5366F1BDE9DB /* ScanSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanSummary.swift; sourceTree = "<group>"; };
+		0B68EE8601D02058582AC948 /* CameraInspection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraInspection.swift; sourceTree = "<group>"; };
 		111A1FC06740E21F0DCB59FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		24F0DE2BB60837D249C58100 /* JiuJingUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = JiuJingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		443499D88990031CDC1E0BCC /* JiuJingTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = JiuJingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D0E2AADD1999F169C54EBF /* NetworkScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkScanner.swift; sourceTree = "<group>"; };
+		9428DAFBC99CCD9F013CC1A3 /* CameraHardwareTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraHardwareTests.swift; sourceTree = "<group>"; };
 		96AA7A4C8CAEE7AFF6B48114 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		99D1A3EE88AD905EE6A8552E /* Detection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detection.swift; sourceTree = "<group>"; };
 		9D33785ECD34AA4AE8FC5404 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,6 +71,7 @@
 		2FBBE89094EB38FD459571B1 /* JiuJingTests */ = {
 			isa = PBXGroup;
 			children = (
+				9428DAFBC99CCD9F013CC1A3 /* CameraHardwareTests.swift */,
 				A9C2F296A1E0EF9431A0988A /* DetectionTests.swift */,
 			);
 			path = JiuJingTests;
@@ -75,10 +82,12 @@
 			children = (
 				9D33785ECD34AA4AE8FC5404 /* Assets.xcassets */,
 				E9832AD397E7640B275F5C45 /* BluetoothScanner.swift */,
+				0B68EE8601D02058582AC948 /* CameraInspection.swift */,
 				99D1A3EE88AD905EE6A8552E /* Detection.swift */,
 				111A1FC06740E21F0DCB59FF /* Info.plist */,
 				D6310311416BFD5D5E19BA91 /* JiuJingApp.swift */,
 				77D0E2AADD1999F169C54EBF /* NetworkScanner.swift */,
+				0ADA7B8791AE5366F1BDE9DB /* ScanSummary.swift */,
 				D9E6E00722241CAAB034D5F6 /* Resources */,
 			);
 			path = JiuJing;
@@ -232,9 +241,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC016299A237A7D9A760905D /* BluetoothScanner.swift in Sources */,
+				C14E328E9F70E3F723F76BB5 /* CameraInspection.swift in Sources */,
 				48C915E32D5B5A1C24627E9E /* Detection.swift in Sources */,
 				45CBF57C853AC36F72EBC620 /* JiuJingApp.swift in Sources */,
 				CCDCB83454136F5D83F9B8D4 /* NetworkScanner.swift in Sources */,
+				FA840730D392BAD5A8B7B828 /* ScanSummary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6CA1E5DD1BAF24207342931 /* CameraHardwareTests.swift in Sources */,
 				0A065FAC4C0705D5A99B4358 /* DetectionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,7 +385,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -394,7 +406,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -476,7 +488,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -491,7 +503,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";

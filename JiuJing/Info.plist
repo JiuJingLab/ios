@@ -14,6 +14,7 @@
 <key>UILaunchScreen</key><dict/>
 <key>UISupportedInterfaceOrientations</key><array><string>UIInterfaceOrientationPortrait</string><string>UIInterfaceOrientationLandscapeLeft</string><string>UIInterfaceOrientationLandscapeRight</string></array>
 <key>UISupportedInterfaceOrientations~ipad</key><array><string>UIInterfaceOrientationPortrait</string><string>UIInterfaceOrientationPortraitUpsideDown</string><string>UIInterfaceOrientationLandscapeLeft</string><string>UIInterfaceOrientationLandscapeRight</string></array>
+<key>NSCameraUsageDescription</key><string>揪鏡使用相機即時預覽協助你人工檢查反光與陌生物件。畫面不拍照、不錄影、不儲存、不上傳。</string>
 <key>NSBluetoothAlwaysUsageDescription</key><string>揪鏡需要掃描附近的藍牙廣播，協助你檢視可能需要留意的裝置。資料只在手機處理，不會連線或配對。</string>
 <key>NSLocalNetworkUsageDescription</key><string>揪鏡需要探索你授權檢查的同一 Wi-Fi 網路，查看攝影機常用服務與端口。掃描結果不會上傳。</string>
 <key>NSBonjourServices</key><array><string>_rtsp._tcp</string><string>_http._tcp</string><string>_axis-video._tcp</string></array>

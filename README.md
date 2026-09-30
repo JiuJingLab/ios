@@ -140,8 +140,6 @@ xcodebuild -project JiuJing.xcodeproj -scheme JiuJing -destination 'platform=iOS
 - [實機驗收清單](docs/device-validation.md)
 - [TestFlight 發佈與審查資料](docs/testflight.md)
 - [v0.2 隱私政策](docs/privacy.md)
-- [金源獎填表資料](docs/award-submission.md)
-- [三分鐘內影片劇本](docs/video-script.md)
 
 ---
 

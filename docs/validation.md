@@ -14,8 +14,6 @@
 | 自動簽署 archive | 失敗：Xcode `No Accounts`，且無 `org.jiujinglab.ios` matching provisioning profile |
 | TestFlight build | 尚未上傳，沒有可供測試的 TestFlight 連結 |
 | 真實 iPhone BLE／LAN／權限 | 尚未執行；本機列出的 iPhone 為 unavailable |
-| 報名資料 | 痛點 36 字、理念 251 字、21 欄；表格可開啟、複製按鈕有回饋及手動選取備援 |
-| 影片／報名送出 | 劇本完成；未錄製影片、未上傳 YouTube、未正式送出報名 |
 
 本輪 iPhone 完整 14 項測試結果位於 `build/V01Review.xcresult`；iPad 2 項 UI 測試結果位於 `build/V01iPad.xcresult`。原始 xcresult 及 QA 截圖只留在本機，不提交：模擬器可能帶有既有帳號的系統提示。詳情頁測試使用明確標示的 DEBUG 模擬資料，不能當作實機偵測證據。
 
@@ -25,7 +23,7 @@
 
 ## 新 Logo 套用驗證
 
-2026-09-30：App 圖示、首頁品牌標誌、README、填表頁與網頁圖示統一使用 `docs/brand/jiujing-logo.png`。已確認此檔與使用者提供的原始 Logo 素材逐位元組相同。App 圖示為 1024 × 1024，以相同 sRGB 底色補滿透明圓角且無透明通道；App 內 256 × 256 圖檔保留透明圓角。
+2026-09-30：App 圖示、首頁品牌標誌與 README 統一使用 `docs/brand/jiujing-logo.png`。已確認此檔與使用者提供的原始 Logo 素材逐位元組相同。App 圖示為 1024 × 1024，以相同 sRGB 底色補滿透明圓角且無透明通道；App 內 256 × 256 圖檔保留透明圓角。
 
 - iPhone 17 Pro / iOS 26.5（JiuJing QA）編譯與測試通過：9 項核心測試、1 項同意／模式切換 UI 測試，0 失敗。
 - 已檢視 App 圖示與首頁截圖，並更新 `docs/qa` 截圖；資產目錄與 HTML 圖片路徑檢查、`git diff --check` 通過。

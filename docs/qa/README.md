@@ -4,4 +4,4 @@
 
 已於使用者提供的原始 Logo 素材套用後重新擷取首頁與藍牙模式截圖，來源為先前的 Logo 專項測試紀錄（本機）的 `testConsentRequiredAndModeSwitch`。
 
-這些圖片只供 review 介面，不是實機驗收證據，也不是已符合金源獎比例要求的正式操作素材。
+這些圖片只供 review 介面，不是實機驗收證據。

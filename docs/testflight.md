@@ -35,8 +35,6 @@ DEVELOPMENT_TEAM=你的十碼TeamID BUNDLE_ID=org.jiujinglab.ios ./scripts/archi
 
 本 App 使用系統網路 API，未實作自訂加密；`ITSAppUsesNonExemptEncryption=false` 反映目前實作。若增加加密相關功能，需重新核對 Apple 出口合規問卷。
 
-金源獎對原生 iOS 作品要求正式 App Store 上架網址；TestFlight 本身不滿足該項要求。
-
 ## v0.1 發佈紀錄（2026-09-30）
 
 - 版本 `0.1.0 (1)`，Bundle ID `org.jiujinglab.ios`，Apple ID `6817397936`。
